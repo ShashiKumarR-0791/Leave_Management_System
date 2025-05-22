@@ -25,11 +25,11 @@ public class AuthController {
             switch (user.getRole().toLowerCase()) {
                 case "employee" -> {
                     EmployeeController empController = new EmployeeController(user);
-                    empController.showMenu();
+                    empController.showEmployeeMenu();
                 }
                 case "manager" -> {
                     ManagerController mgrController = new ManagerController();
-                    mgrController.showMenu();
+                    mgrController.showManagerMenu();
                 }
                 default -> System.out.println("Unknown role: " + user.getRole());
             }

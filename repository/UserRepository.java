@@ -21,13 +21,13 @@ public class UserRepository {
     public void addUser(User user) {
         List<User> users = getAllUsers();
         users.add(user);
-        saveUsers(users); 
+        saveUsers(users);  // Updated method call
     }
 
     public boolean deleteUser(String username) {
         List<User> users = getAllUsers();
         boolean removed = users.removeIf(u -> u.getUsername().equalsIgnoreCase(username));
-        saveUsers(users);  
+        saveUsers(users);  // Updated method call
         return removed;
     }
 
@@ -35,7 +35,7 @@ public class UserRepository {
         List<User> users = getAllUsers().stream()
                 .map(u -> u.getUsername().equalsIgnoreCase(updatedUser.getUsername()) ? updatedUser : u)
                 .collect(Collectors.toList());
-        saveUsers(users); 
+        saveUsers(users);  // Updated method call
     }
 
     public User getUserByUsername(String username) {
