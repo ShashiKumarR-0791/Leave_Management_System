@@ -20,7 +20,7 @@ public class AdminController {
             System.out.println("0. Logout");
             System.out.print("Select: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine(); // consume newline
 
             switch (choice) {
                 case 1 -> addUser();

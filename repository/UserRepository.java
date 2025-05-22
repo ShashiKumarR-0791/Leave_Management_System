@@ -1,11 +1,10 @@
 package repository;
 
-import model.User;
-import util.CSVUtil;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import model.User;
+import util.CSVUtil;
 
 public class UserRepository {
 	private static final String FILE_PATH = "data/users.csv";
@@ -27,7 +26,7 @@ public class UserRepository {
     public boolean deleteUser(String username) {
         List<User> users = getAllUsers();
         boolean removed = users.removeIf(u -> u.getUsername().equalsIgnoreCase(username));
-        saveUsers(users);  
+        saveUsers(users); 
         return removed;
     }
 
@@ -35,7 +34,7 @@ public class UserRepository {
         List<User> users = getAllUsers().stream()
                 .map(u -> u.getUsername().equalsIgnoreCase(updatedUser.getUsername()) ? updatedUser : u)
                 .collect(Collectors.toList());
-        saveUsers(users); 
+        saveUsers(users);
     }
 
     public User getUserByUsername(String username) {

@@ -1,42 +1,28 @@
 package service;
 
+import java.time.LocalDate;
+import java.util.List;
 import model.LeaveRequest;
 import model.User;
-import util.CSVUtil;
-
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import repository.LeaveRepository;
 
 public class LeaveService {
-    private final String filePath = "leaves.csv";
+    private final LeaveRepository leaveRepo = new LeaveRepository();
 
-    public void applyLeave(User user) {
-        List<LeaveRequest> leaves = CSVUtil.readLeaves(filePath);
-        leaves.add(new LeaveRequest(user.getUsername(), "PENDING"));
-        CSVUtil.writeLeaves(filePath, leaves);
-        System.out.println("Leave request submitted.");
+    public void applyLeave(User user, LocalDate start, LocalDate end, String reason) {
+        LeaveRequest request = new LeaveRequest(user.getUsername(), start, end, reason, "pending");
+        leaveRepo.addLeave(request);
     }
 
-    public void approveLeave(User manager) {
-        List<LeaveRequest> leaves = CSVUtil.readLeaves(filePath);
-        List<LeaveRequest> pending = leaves.stream()
-                .filter(l -> l.getStatus().equals("PENDING"))
-                .collect(Collectors.toList());
+    public List<LeaveRequest> getPendingLeaves() {
+        return leaveRepo.getLeavesByStatus("pending");
+    }
 
-        for (int i = 0; i < pending.size(); i++) {
-            System.out.println(i + 1 + ". " + pending.get(i));
-        }
+    public List<LeaveRequest> getEmployeeLeaves(String username) {
+        return leaveRepo.getLeavesByEmployee(username);
+    }
 
-        if (!pending.isEmpty()) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter leave number to approve: ");
-            int index = scanner.nextInt() - 1;
-            pending.get(index).setStatus("APPROVED");
-            CSVUtil.writeLeaves(filePath, leaves);
-            System.out.println("Leave approved.");
-        } else {
-            System.out.println("No pending leaves.");
-        }
+    public void updateLeaveStatus(LeaveRequest leave, String status) {
+        leaveRepo.updateLeaveStatus(leave, status);
     }
 }
