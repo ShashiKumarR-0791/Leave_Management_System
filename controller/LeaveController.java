@@ -1,44 +1,11 @@
-//package controller;
-//
-//import model.User;
-//import service.LeaveService;
-//
-//import java.util.Scanner;
-//
-//public class LeaveController {
-//    private final LeaveService leaveService = new LeaveService();
-//
-//    public void employeeMenu(User user) {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("1. Apply for Leave");
-//        System.out.print("Enter choice: ");
-//        int choice = scanner.nextInt();
-//        scanner.nextLine();
-//        if (choice == 1) {
-//            leaveService.applyLeave(user);
-//        }
-//    }
-//
-//    public void managerMenu(User user) {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("1. View Pending Leaves");
-//        System.out.print("Enter choice: ");
-//        int choice = scanner.nextInt();
-//        scanner.nextLine();
-//        if (choice == 1) {
-//            leaveService.approveLeave(user);
-//        }
-//    }
-//}
 package controller;
-
-import model.LeaveRequest;
-import model.User;
-import service.LeaveService;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import model.LeaveRequest;
+import model.User;
+import service.LeaveService;
 
 public class LeaveController {
     private final LeaveService leaveService = new LeaveService();
@@ -53,7 +20,7 @@ public class LeaveController {
             System.out.println("0. Logout");
             System.out.print("Enter choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1 -> applyLeave(user);
@@ -67,7 +34,6 @@ public class LeaveController {
         }
     }
 
-    // Manager menu to view and approve/reject leaves
     public void managerMenu() {
         while (true) {
             System.out.println("\n--- Manager Leave Menu ---");
@@ -75,7 +41,7 @@ public class LeaveController {
             System.out.println("0. Logout");
             System.out.print("Enter choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); 
 
             switch (choice) {
                 case 1 -> approvePendingLeaves();
